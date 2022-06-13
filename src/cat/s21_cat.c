@@ -22,16 +22,16 @@ int main(int argc, char *argv[]) {
             default:
             printf("cat: illegal option -- %c\n", rez);
             printf("usage: cat [-benstuv] [file ...]\n");
-			exit = 1;
-			break;
+            exit = 1;
+            break;
         }
     }
     if (!exit) {
-		while (optind < argc) {
-			open_file(argv, b, e, n, s, t, v);
-			optind++;
-		}
-	}
+        while (optind < argc) {
+            open_file(argv, b, e, n, s, t, v);
+            optind++;
+            }
+    }
     return 0;
 }
 
@@ -40,8 +40,8 @@ void open_file(char* argv[], int b, int e, int n, int s, int t, int v) {
     if (b && n) n = 0;
     fp = fopen(argv[optind], "r+");
     if (!fp) {
-		printf("cat: %s: %s\n", argv[optind], strerror(errno));
-    } else {
+        printf("cat: %s: %s\n", argv[optind], strerror(errno));
+        } else {
         s21_cat(b, e, n, s, t, v, fp);
         fclose(fp);
     }
@@ -55,12 +55,10 @@ void s21_cat(int b, int e, int n, int s, int t, int v, FILE* fp) {
             if (current != '\n') temp = 0;
         }
         if (current == '\n' && (!s || temp < 3)) {
-				if (n && prev == '\n')
-                    printf("%6d\t", count++);
-                if (e)
-                    printf("$");
-                printf("%c", current);
-			}
+            if (n && prev == '\n') printf("%6d\t", count++);
+            if (e) printf("$");
+            printf("%c", current);
+            }
         if (current != '\n') {
                 if ((prev == '\n' || first == 1) && (n || b))
                     printf("%6d\t", count++);
